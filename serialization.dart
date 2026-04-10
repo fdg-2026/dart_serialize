@@ -7,6 +7,7 @@ void main() async {
   employee.name = "GS retired";
   employee.hoursPerWeek = 10;
   employee.salary = 0;
+  employee.languages = ["C#", "Dart"];
 
   var map = employee.toJson();
   var jsonString1 = jsonEncode(map);
@@ -27,7 +28,8 @@ void main() async {
   final created = Employee.fromJson(readMap);
 
   print(
-    "created employee: id: ${created.id}, name: ${created.name}, "
-    "salary: ${created.salary}, hoursPerWeek: ${created.hoursPerWeek}",
+    "created employee: id: ${created.id}, name: ${created.name},\n"
+    "salary: ${created.salary}, hoursPerWeek: ${created.hoursPerWeek},\n"
+    "languages: ${created.languages}",
   );
 }

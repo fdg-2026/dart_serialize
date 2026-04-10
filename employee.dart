@@ -4,6 +4,7 @@ class Employee {
   String name = "unknown";
   double hoursPerWeek = 40;
   double salary = 4000;
+  List<String> languages = [];
 
   // Object -> Map
   Map<String, dynamic> toJson() {
@@ -12,6 +13,7 @@ class Employee {
       "name": name,
       "hoursPerWeek": hoursPerWeek,
       "salary": salary,
+      "languages": languages,
     };
   }
 
@@ -22,8 +24,11 @@ class Employee {
     }
     var result = Employee(json["id"]);
     result.name = json['name'];
-    result.hoursPerWeek = json['hoursPerWeek'];
+    if (json['hoursPerWeek'] is num) {
+      result.hoursPerWeek = json['hoursPerWeek'].toDouble();
+    }
     result.salary = json['salary'];
+    result.languages = List<String>.from(json['languages']);
     return result;
   }
 }
