@@ -1,0 +1,33 @@
+import 'dart:convert';
+import 'dart:io';
+import 'employee.dart';
+
+void main() async {
+  final employee = Employee("gs123");
+  employee.name = "GS retired";
+  employee.hoursPerWeek = 10;
+  employee.salary = 0;
+
+  var map = employee.toJson();
+  var jsonString1 = jsonEncode(map);
+  print(jsonString1);
+
+  var encoder = const JsonEncoder.withIndent('  ');
+  var jsonString = encoder.convert(map);
+  print(jsonString);
+
+  final file = File('test.json');
+  await file.writeAsString(jsonString);
+  print('Saved to file.');
+
+  String readFromFile = await file.readAsString();
+  print(readFromFile);
+
+  final Map<String, dynamic> readMap = jsonDecode(readFromFile);
+  final created = Employee.fromJson(readMap);
+
+  print(
+    "created employee: id: ${created.id}, name: ${created.name}, "
+    "salary: ${created.salary}, hoursPerWeek: ${created.hoursPerWeek}",
+  );
+}
