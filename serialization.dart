@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'employee.dart';
+import 'employee_robust.dart';
 
 void main() async {
   final employee = Employee("gs123");
@@ -24,12 +24,16 @@ void main() async {
   String readFromFile = await file.readAsString();
   print(readFromFile);
 
-  final Map<String, dynamic> readMap = jsonDecode(readFromFile);
-  final created = Employee.fromJson(readMap);
+  try {
+    final Map<String, dynamic> readMap = jsonDecode(readFromFile);
+    final created = Employee.fromJson(readMap);
 
-  print(
-    "created employee: id: ${created.id}, name: ${created.name},\n"
-    "salary: ${created.salary}, hoursPerWeek: ${created.hoursPerWeek},\n"
-    "languages: ${created.languages}",
-  );
+    print(
+      "created employee: id: ${created.id}, name: ${created.name},\n"
+      "salary: ${created.salary}, hoursPerWeek: ${created.hoursPerWeek},\n"
+      "languages: ${created.languages}",
+    );
+  } on Exception catch (e) {
+    print("$e");
+  }
 }
